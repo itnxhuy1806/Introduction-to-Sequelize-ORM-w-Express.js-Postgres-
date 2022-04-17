@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel./src --out-dir ./dist",
+    "build": "babel ./src --out-dir ./dist",
     "start": "node dist/server.js",
     "debug": "npm run dev -- --inspect",
     "dev": "NODE_ENV=development nodemon --exec babel-node src/server.js",
