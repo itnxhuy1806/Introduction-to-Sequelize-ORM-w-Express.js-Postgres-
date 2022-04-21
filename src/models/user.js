@@ -55,6 +55,9 @@ export default (sequelize) => {
                isEmail: {
                   msg: 'Not a valid email address',
                },
+               notNull: {
+                  msg: 'Email is required'
+               }
             },
          },
          password: {
@@ -107,9 +110,15 @@ export default (sequelize) => {
    };
 
    User.beforeSave(async (user, options) => {
-      const hashedPassword = await User.hashPassword(user.password);
-      user.password = hashedPassword;
+      if (user.password) {
+         const hashedPassword = await User.hashPassword(user.password);
+         user.password = hashedPassword;
+      }
    });
+
+   User.afterCreate((user, options) => {
+      delete user.dataValues.password;
+   })
 
    return User;
 };

@@ -1,16 +1,19 @@
-import { Model, DataTypes } from 'sequelize'
+import { Model, DataTypes } from 'sequelize';
 
 export default (sequelize) => {
-    class RefreshToken extends Model {
-        static associate(models) {
-            RefreshToken.belongsTo(models.User)
-        }
+  class RefreshToken extends Model {
+    static associate(models) {
+      RefreshToken.belongsTo(models.User, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
     }
+  }
 
-    RefreshToken.init(
-        { RefreshToken: { type: DataTypes.STRING } },
-        { sequelize, modelName: 'RefreshToken' }
-    )
+  RefreshToken.init(
+    { token: { type: DataTypes.TEXT } },
+    { sequelize, modelName: 'RefreshToken' }
+  );
 
-    return RefreshToken
-}
+  return RefreshToken;
+};
