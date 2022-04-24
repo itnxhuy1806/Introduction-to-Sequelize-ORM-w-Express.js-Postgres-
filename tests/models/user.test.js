@@ -1,15 +1,15 @@
-import TestHelpers from '../tests-helpers'
+import TestsHelpers from '../tests-helpers'
 import models from '../../src/models'
 
 describe('User', () => {
      beforeAll(async () => {
-          await TestHelpers.startDb();
+          await TestsHelpers.startDb();
      })
      afterAll(async () => {
-          await TestHelpers.stopDb();
+          await TestsHelpers.stopDb();
      })
      beforeEach(async () => {
-          await TestHelpers.syncDb();
+          await TestsHelpers.syncDb();
      })
      describe('static methods', () => {
           describe('hashPassword', () => {
@@ -109,7 +109,7 @@ describe('User', () => {
           let user
 
           beforeEach(async () => {
-               user = await TestHelpers.createNewUser()
+               user = await TestsHelpers.createNewUser()
           })
 
           describe('defaultScopes', () => {
@@ -133,7 +133,7 @@ describe('User', () => {
                let password = "Test123#"
                let user
                beforeEach(async () => {
-                    user = await TestHelpers.createNewUser({ password})
+                    user = await TestsHelpers.createNewUser({ password})
                })
                it('should return true if password is correct',async () => {
                     const { User } = models
@@ -151,7 +151,7 @@ describe('User', () => {
      })
      describe('hooks',()=>{
           it('should not attempt to hash the password if it is not given', async()=>{
-               const user = await TestHelpers.createNewUser()
+               const user = await TestsHelpers.createNewUser()
                user.email = 'test2@example.com'
                await user.save()
           })
