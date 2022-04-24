@@ -1,7 +1,7 @@
 import '../src/config';
 import Database from '../src/database';
 import dbConfig from '../src/config/database';
-import { user } from 'pg/lib/defaults';
+import request from 'supertest';
 
 let db;
 
@@ -42,5 +42,21 @@ export default class TestHelpers {
                refreshToken,
           };
           return User.createNewUser(data);
+     }
+
+     static getApp() {
+          const App = require('../src/app').default;
+          return new App().getApp();
+     }
+
+     static async registerNewUser(options = {}) {
+          const {
+               email = 'test@example.com',
+               password = 'Test123#',
+               endpoint = '/v1/register',
+          } = options;
+          return request(TestHelpers.getApp())
+               .post(endpoint)
+               .send({ email, password });
      }
 }

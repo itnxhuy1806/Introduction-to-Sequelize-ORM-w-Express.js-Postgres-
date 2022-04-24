@@ -20,6 +20,5 @@ describe('Role',()=>{
           await user.destroy()
           rolesCount = await Role.count()
           expect(rolesCount).toEqual(0)
-
      })
 })
